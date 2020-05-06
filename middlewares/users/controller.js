@@ -10,10 +10,16 @@ module.exports = {
 
   getById: (req, res, next) => {
     const id = Number(req.params.id)
-
-    res.send({
-      message: "Get user by id",
-      user: User.findById(id),
-    })
+    const user = User.findById(id)
+    if (user) {
+      res.send({
+        message: "Get user by id",
+        user: User.findById(id),
+      })
+    } else {
+      res.send({
+        message: "User is not found",
+      })
+    }
   },
 }
