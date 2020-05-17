@@ -1,7 +1,8 @@
-const users = require("./users.json")
+const fs = require("fs-extra")
+// const users = require("./users.json")
+let items = fs.readJson(__dirname + "/users.json")
 
 let idCounter = 2
-let items = users
 
 module.exports = {
   find: () => {
@@ -10,5 +11,15 @@ module.exports = {
 
   findById: (id) => {
     return items.find((item) => item.id === id)
+  },
+
+  newId: () => {
+    idCounter++
+    return idCounter
+  },
+
+  concatNewUser: (newUser) => {
+    const updatedUsers = items.concat(newUser)
+    return updatedUsers
   },
 }

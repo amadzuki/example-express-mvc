@@ -22,4 +22,18 @@ module.exports = {
       })
     }
   },
+
+  postNewUser: (req, res, next) => {
+    const newUser = {
+      id: User.newId(),
+      name: req.body.name,
+      username: req.body.username,
+      email: req.body.email,
+    }
+    const updatedUsers = User.concatNewUser(newUser)
+    res.send({
+      message: "Add new user",
+      newUser: newUser,
+    })
+  },
 }
