@@ -3,8 +3,8 @@ const router = express.Router()
 
 const users = require("./controller")
 
-router.get("/", users.getAll)
 router.get("/:id", users.getById)
+router.get("/", users.getAll)
 
 router.post("/", users.postNewUser)
 

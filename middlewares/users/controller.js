@@ -1,26 +1,33 @@
 const User = require("./model")
 
 module.exports = {
-  getAll: (req, res, next) => {
-    res.send({
-      message: "Get all users",
-      users: User.find(),
-    })
+  getAll: async (req, res, next) => {
+    try {
+      const users = await User.find()
+      res.send({
+        message: "Get all users",
+        users: users,
+      })
+    } catch (error) {
+      res.send(error)
+    }
   },
 
-  getById: (req, res, next) => {
+  getById: async (req, res, next) => {
     const id = Number(req.params.id)
-    const user = User.findById(id)
-    if (user) {
-      res.send({
-        message: "Get user by id",
-        user: User.findById(id),
-      })
-    } else {
-      res.send({
-        message: "User is not found",
-      })
-    }
+    try {
+      const user = await User.findById(id)
+      if (user) {
+        res.send({
+          message: "Get user by id",
+          user: user,
+        })
+      } else {
+        res.send({
+          message: "User is not found",
+        })
+      }
+    } catch (error) {}
   },
 
   postNewUser: (req, res, next) => {

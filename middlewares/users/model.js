@@ -1,16 +1,20 @@
 const fs = require("fs-extra")
 // const users = require("./users.json")
-let items = fs.readJson(__dirname + "/users.json")
 
 let idCounter = 2
 
 module.exports = {
-  find: () => {
+  find: async () => {
+    const items = await fs.readJson(__dirname + "/users.json")
     return items
   },
 
-  findById: (id) => {
-    return items.find((item) => item.id === id)
+  findById: async (id) => {
+    const items = await fs.readJson(__dirname + "/users.json")
+    const item = items.find((item) => item.id === id)
+    console.log(item)
+
+    return item
   },
 
   newId: () => {
